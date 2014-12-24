@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - LEO@localhost" uuid="c8fc6be1-22f5-4ecc-aac0-0dc85717039f">
+    <database-info product="MySQL" version="5.6.10" jdbc-version="3.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.10 ( Revision: ${svn.Revision} )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="leo"/>
+    <table name="t_org" schema="" catalog="leo" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="descp" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pid" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_xuwui6d4llthimpubc0rjvyh" table="t_user_org" schema="" catalog="leo" columns="orgId"/>
+    </table>
+    <table name="t_privilege" schema="" catalog="leo" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="access" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="accessValue" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="createDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="createUserId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="master" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="masterValue" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="modifyDate" sqlType="DATETIME" precision="19" scale="0" nullable="true" jdbcType="93"/>
+      <column name="modifyUserId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="operation" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="t_role" schema="" catalog="leo" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="descp" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_kjp9c6hki8a1p70x44bwqex2v" table="t_user_role" schema="" catalog="leo" columns="roleId"/>
+    </table>
+    <table name="t_user" schema="" catalog="leo" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="age" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="avatar" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="birthday" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nickname" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sex" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="username" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="FK_7gv29nqdlxei1faihqprsblws" table="t_user_org" schema="" catalog="leo" columns="userId"/>
+      <exported-key name="FK_akj61lp0wul5h73yq0xrq89cq" table="t_user_role" schema="" catalog="leo" columns="userId"/>
+    </table>
+    <table name="t_user_org" schema="" catalog="leo" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="orgId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="userId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_7gv29nqdlxei1faihqprsblws" columns="userId" ref-table="t_user" ref-schema="" ref-catalog="leo" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_xuwui6d4llthimpubc0rjvyh" columns="orgId" ref-table="t_org" ref-schema="" ref-catalog="leo" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_xuwui6d4llthimpubc0rjvyh" unique="false" columns="orgId"/>
+      <index name="FK_7gv29nqdlxei1faihqprsblws" unique="false" columns="userId"/>
+    </table>
+    <table name="t_user_role" schema="" catalog="leo" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="roleId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="userId" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="FK_akj61lp0wul5h73yq0xrq89cq" columns="userId" ref-table="t_user" ref-schema="" ref-catalog="leo" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="FK_kjp9c6hki8a1p70x44bwqex2v" columns="roleId" ref-table="t_role" ref-schema="" ref-catalog="leo" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <index name="FK_kjp9c6hki8a1p70x44bwqex2v" unique="false" columns="roleId"/>
+      <index name="FK_akj61lp0wul5h73yq0xrq89cq" unique="false" columns="userId"/>
+    </table>
+  </data-source>
+</component>

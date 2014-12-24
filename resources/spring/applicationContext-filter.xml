@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--不扫描@Controler-->
+    <bean id="compositeFilter" class="com.leo.filter.CompositeFilter">
+        <property name="filters">
+            <list>
+                <ref bean="encodingFilter"/>
+                <ref bean="checkUserLoginFilter"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="encodingFilter" class="org.springframework.web.filter.CharacterEncodingFilter">
+        <property name="encoding" value="UTF-8"/>
+        <property name="forceEncoding" value="true"/>
+    </bean>
+
+    <bean id="checkUserLoginFilter" class="com.leo.filter.CheckUserLogin" >
+        <property name="exclude">
+            <list>
+                <value>/rs/*</value>
+                <value>/pages/login.jsp</value>
+                <value>/user/register.do</value>
+                <value>/user/login.do</value>
+            </list>
+        </property>
+    </bean>
+</beans>
