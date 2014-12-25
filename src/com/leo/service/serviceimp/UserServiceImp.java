@@ -3,6 +3,7 @@ package com.leo.service.serviceimp;
 import com.leo.dao.UserDao;
 import com.leo.model.User;
 import com.leo.service.UserService;
+import com.leo.util.Base64_Img;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -62,6 +63,17 @@ public class UserServiceImp implements UserService{
         return user;
     }
 
+    public User uploadAvatar(String username,String avatar,String path,String filename){
+        avatar = avatar.replace("data:image/png;base64,","");
+        if(Base64_Img.GenerateImage(avatar,path+"\\"+filename)){
+            User user = userDao.find(username);
+            user.setAvatar(filename);
+            userDao.updateUser(user);
+            return user;
+        }
+        return null;
+    }
+
     @Override
     public void delUser(User user) {
         userDao.delUser(user);
@@ -82,12 +94,12 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public boolean userLogin(String username, String password) {
+    public User userLogin(String username, String password) {
         User user = userDao.find(username);
         if(user.getPassword().equals(password)){
-            return true;
+            return user;
         }
-        return false;
+        return null;
     }
 
     @Override

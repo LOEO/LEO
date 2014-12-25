@@ -19,7 +19,7 @@
     <a href="#" class="navbar-brand">
         <small>
             <i class="icon-leaf"></i>
-            ACE后台管理系统
+            LEO后台管理系统
         </small>
     </a><!-- /.brand -->
 </div><!-- /.navbar-header -->
@@ -36,13 +36,15 @@
             <i class="icon-warning-sign"></i>
             在线用户
         </li>
-        <c:forEach items="${users}" var="username">
+        <c:forEach items="${users}" var="user">
             <li>
                 <a href="#">
                     <div class="clearfix">
 											<span class="pull-left">
-												<i class="btn btn-xs no-hover btn-pink icon-comment"></i>
-												${username}
+												<i class="btn btn-xs no-hover btn-pink ">
+                                                         <img src="${ctx}/upload/${user.avatar}" width="21px" heigh="18px"/>
+												</i>
+												${user.username}
 											</span>
                     </div>
                 </a>
@@ -261,7 +263,7 @@
 
 <li class="light-blue">
     <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-        <img class="nav-user-photo" src="${ctx}/upload/${curUser.photo}" alt="Jason's Photo" />
+        <img class="nav-user-photo" src="${ctx}/upload/${curUser.avatar}" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>欢迎光临,</small>
 									${curUserName}

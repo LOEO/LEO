@@ -385,7 +385,7 @@
                                 text: '请选择一个 jpg|gif|png 格式的图片!',
                                 class_name: 'gritter-error gritter-center'
                             });
-                        } else if (code == 2) {//file size rror
+                        } else if (code == 2) {//file size error
                             last_gritter = $.gritter.add({
                                 title: '图片太大!',
                                 text: '图片大小不能超过100Kb!',
@@ -420,16 +420,24 @@
                         if (thumb) $('#avatar').get(0).src = thumb;
                     }
 
-                    $.post("user_upload", {
-                        userName: "${curUser.username}",
-                        m: "ajaxSavePhoto",
-                        photo: thumb
+                    $.post("/user/user_profile_uploadAvatar.do", {
+                        userName: "${user.username}",
+                        avatar: thumb
                     }, function (data) {
-                        deferred.resolve({'status': 'OK'});
+                        var title = "",text="";
+                        if(data == "success"){
+                            deferred.resolve({'status': data});
+                            title = "上传成功";
+                            text = "头像已上传至服务器";
+                        }else{
+                            deferred.reject({'status': data});
+                            title = "上传失败";
+                            text = "上传失败";
+                        }
                         if (last_gritter) $.gritter.remove(last_gritter);
                         last_gritter = $.gritter.add({
-                            title: '上传成功',
-                            text: '头像已上传至服务器',
+                            title: title,
+                            text: text,
                             class_name: 'gritter-info gritter-center'
                         });
                         return deferred.promise();

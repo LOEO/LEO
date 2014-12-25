@@ -1,5 +1,6 @@
 package com.leo.controller;
 
+import com.leo.listener.OnlineUserBoundingListener;
 import com.leo.model.User;
 import com.leo.service.UserService;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,7 @@ import java.util.Map;
  */
 @Controller
 @RequestMapping("/user")
-@SessionAttributes("curUserName")
+@SessionAttributes({"curUserName","curUser"})
 public class UserController {
     private UserService userService;
 
@@ -28,9 +29,12 @@ public class UserController {
     }
 
     @RequestMapping("login")
-    public String userLogin(String username,String password,ModelMap modelMap){
-        if(userService.userLogin(username,password)){
-            modelMap.addAttribute("curUserName",username);
+    public String userLogin(String username,String password,ModelMap modelMap,HttpSession session){
+        User user = userService.userLogin(username,password);
+        if(user != null){
+            modelMap.addAttribute("curUserName", username);
+            modelMap.addAttribute("curUser", user);
+            session.setAttribute("onlineUserBindingListener",new OnlineUserBoundingListener(user));
             return "redirect:/index.do";
         }
         modelMap.addAttribute("error","用户名或密码错误！");
@@ -45,10 +49,9 @@ public class UserController {
     }
 
     @RequestMapping("user_profile")
-    public String userProfile(String username,HttpServletRequest req,ModelMap modelMap){
+    public String userProfile(String username,ModelMap modelMap){
         if(username == null){
-            HttpSession session = req.getSession();
-            username = session.getAttribute("curUserName").toString();
+            username = modelMap.get("curUserName").toString();
         }
         User user = userService.findUserByUsername(username);
         modelMap.addAttribute("user",user);
@@ -56,12 +59,31 @@ public class UserController {
     }
 
     @RequestMapping("user_profile_save")
-    public String userProfileSave(@RequestParam Map<String,String> map,ModelMap modelMap,HttpServletRequest req){
-        HttpSession session = req.getSession();
-        String username = session.getAttribute("curUserName").toString();
+    public String userProfileSave(@RequestParam Map<String,String> map,ModelMap modelMap){
+        String username = modelMap.get("curUserName").toString();
         map.put("username",username);
         userService.updateUser(map);
         return "redirect:/user/user_profile.do";
+    }
+
+    @RequestMapping("user_profile_uploadAvatar")
+    @ResponseBody
+    public String uploadAvatar(String avatar,HttpServletRequest req,ModelMap modelMap){
+        String username = modelMap.get("curUserName").toString();
+        String filename = System.currentTimeMillis()+".jpg";
+        String path = req.getServletContext().getRealPath("/upload");
+        User user = userService.uploadAvatar(username,avatar,path,filename);
+        if(user!=null){
+            modelMap.put("curUser",user);
+            return "success";
+        }
+        return "fail";
+    }
+
+    @RequestMapping
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "login";
     }
 
     @Resource

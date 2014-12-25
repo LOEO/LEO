@@ -57,7 +57,7 @@
                     </td>
                     <td>${user.nickname}</td>
                     <td>${user.email}</td>
-                    <td class="hidden-480"><fmt:formatDate value="${user.birthday}" pattern="yyyy-mm-dd"/><%--<fmt:formatDate value="${user.birthDate}"></fmt:formatDate>--%></td>
+                    <td class="hidden-480"><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/><%--<fmt:formatDate value="${user.birthDate}"></fmt:formatDate>--%></td>
                     <td>${user.sex}</td>
 
                     <td class="hidden-480">

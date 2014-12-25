@@ -20,7 +20,8 @@ public interface UserService {
     public void delUser(User user);
     public void delUser(int id);
     public boolean exist(String name);
-    public boolean userLogin(String username,String password);
+    public User userLogin(String username,String password);
     public String userRegister(Map<String,String> map);
     public User updateUser(Map<String,String> map);
+    public User uploadAvatar(String username,String avatar,String path,String filename);
 }

@@ -24,9 +24,9 @@ public class CheckUserLogin implements Filter {
         HttpServletRequest hReq = (HttpServletRequest)servletRequest;
         HttpServletResponse hRes = (HttpServletResponse)servletResponse;
         HttpSession session = hReq.getSession();
+        String uri = hReq.getRequestURI();
+        System.out.println(uri);
         if(session.getAttribute("curUserName") == null){
-            String uri = hReq.getRequestURI();
-            System.out.println(uri);
             boolean flag = false;
             for(String s:exclude){
                 if(s.contains("*")){
@@ -44,7 +44,11 @@ public class CheckUserLogin implements Filter {
             if(!flag)
                 hRes.sendRedirect(hReq.getContextPath() + "/pages/login.jsp");
         }else{
-            filterChain.doFilter(servletRequest,servletResponse);
+            if(uri.contains("login.jsp")){
+                hRes.sendRedirect(hReq.getContextPath() + "/index.do");
+            }else{
+                filterChain.doFilter(servletRequest,servletResponse);
+            }
         }
     }
 
