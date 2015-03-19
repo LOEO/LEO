@@ -20,8 +20,6 @@ public class Base64_Img {
 
 // 测试从图片文件转换为Base64编码
         System.out.println(GetImageStr("d:\\wangyc.jpg"));
-
-
     }
 
     public static String GetImageStr(String imgFilePath) {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理

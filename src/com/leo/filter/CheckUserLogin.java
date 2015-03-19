@@ -42,9 +42,9 @@ public class CheckUserLogin implements Filter {
                 }
             }
             if(!flag)
-                hRes.sendRedirect(hReq.getContextPath() + "/pages/login.jsp");
+                hRes.sendRedirect(hReq.getContextPath() + "/pages/login-ext.jsp");
         }else{
-            if(uri.contains("login.jsp")){
+            if(uri.contains("login-ext.jsp")){
                 hRes.sendRedirect(hReq.getContextPath() + "/index.do");
             }else{
                 filterChain.doFilter(servletRequest,servletResponse);

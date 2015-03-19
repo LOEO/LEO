@@ -43,6 +43,8 @@
 <script src="${ctx}/rs/ace/assets/js/ace-elements.min.js"></script>
 <script src="${ctx}/rs/ace/assets/js/ace.min.js"></script>
 <script src="${ctx}/rs/ace/assets/js/bootbox.min.js"></script>
+
+<script src="${ctx}/rs/ace/assets/js/jquery.dataTables.min.js"></script>
 <script>
     $("#logout").on("click", function() {
         debugger;

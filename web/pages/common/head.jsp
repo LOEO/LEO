@@ -9,6 +9,8 @@
 <%
   pageContext.setAttribute("ctx",request.getContextPath());
 %>
+<meta name="description" content="Static &amp; Dynamic Tables" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <link href="${ctx}/rs/ace/assets/css/bootstrap.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="${ctx}/rs/ace/assets/css/font-awesome.min.css" />
 

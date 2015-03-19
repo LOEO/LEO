@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,17 +30,21 @@ public class UserController {
         return userService.userRegister(map);
     }
 
-    @RequestMapping("login")
-    public String userLogin(String username,String password,ModelMap modelMap,HttpSession session){
+    @RequestMapping(value="login",method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> userLogin(String username,String password,ModelMap modelMap,HttpSession session){
         User user = userService.userLogin(username,password);
+        Map<String,Object> map = new HashMap<String, Object>();
         if(user != null){
             modelMap.addAttribute("curUserName", username);
             modelMap.addAttribute("curUser", user);
             session.setAttribute("onlineUserBindingListener",new OnlineUserBoundingListener(user));
-            return "redirect:/index.do";
+            map.put("success",true);
+        }else{
+            map.put("success",false);
+            map.put("msg","用户名或密码错误!");
         }
-        modelMap.addAttribute("error","用户名或密码错误！");
-        return "login";
+        return map;
     }
 
     @RequestMapping("user_list")
