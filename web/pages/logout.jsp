@@ -10,5 +10,5 @@
 <%
     System.out.println(request.getContextPath());
     session.invalidate();
-    response.sendRedirect(request.getContextPath() + "/jsp/Login.jsp");
+    response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
 %>

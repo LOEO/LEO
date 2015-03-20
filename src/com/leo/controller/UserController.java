@@ -24,34 +24,15 @@ import java.util.Map;
 public class UserController {
     private UserService userService;
 
-    @RequestMapping("register")
-    @ResponseBody
-    public String userRegister(@RequestParam Map<String,String> map){
-        return userService.userRegister(map);
-    }
-
-    @RequestMapping(value="login",method = RequestMethod.POST)
-    @ResponseBody
-    public Map<String,Object> userLogin(String username,String password,ModelMap modelMap,HttpSession session){
-        User user = userService.userLogin(username,password);
-        Map<String,Object> map = new HashMap<String, Object>();
-        if(user != null){
-            modelMap.addAttribute("curUserName", username);
-            modelMap.addAttribute("curUser", user);
-            session.setAttribute("onlineUserBindingListener",new OnlineUserBoundingListener(user));
-            map.put("success",true);
-        }else{
-            map.put("success",false);
-            map.put("msg","用户名或密码错误!");
-        }
-        return map;
-    }
 
     @RequestMapping("user_list")
     public String userList(ModelMap modelMap){
-        List<User> list = userService.getAllUser();
-        modelMap.addAttribute("userlist",list);
         return "user/user_list";
+    }
+
+    @RequestMapping("user_view")
+    public String userView(ModelMap modelMap){
+        return "user/user_view";
     }
 
     @RequestMapping("user_profile")

@@ -27,9 +27,9 @@
         <property name="exclude">
             <list>
                 <value>/rs/*</value>
-                <value>/pages/login-ext.jsp</value>
-                <value>/user/register.do</value>
-                <value>/user/login.do</value>
+                <value>/pages/login.jsp</value>
+                <value>/userAjax/register.do</value>
+                <value>/userAjax/login.do</value>
             </list>
         </property>
     </bean>
