@@ -3,6 +3,7 @@ package com.leo.controller;
 import com.leo.listener.OnlineUserBoundingListener;
 import com.leo.model.User;
 import com.leo.service.UserService;
+import com.leo.util.DateUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,12 +50,59 @@ public class UserAjaxController {
         return map;
     }
 
+    @RequestMapping("check_user_exist")
+    @ResponseBody
+    public Map<String,Object> checkUserExist(String username){
+        Map<String,Object> map = new HashMap<String, Object>();
+        if(userService.exist(username)){
+            map.put("exist",true);
+        }else {
+            map.put("exist",false);
+        }
+        return map;
+    }
 
     @RequestMapping("user_list")
     @ResponseBody
     public List<User> userListData(ModelMap modelMap){
         List<User> list = userService.getAllUser();
         return list;
+    }
+
+    @RequestMapping("user_add")
+    @ResponseBody
+    public Map<String,Object> userAdd(@RequestParam Map<String,String> formData){
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        String result = userService.addUser(formData);
+        if(!result.equals("success")){
+            resultMap.put("success",false);
+            resultMap.put("msg",result);
+        }else{
+            resultMap.put("success",true);
+        }
+        return resultMap;
+    }
+
+    @RequestMapping("user_update")
+    @ResponseBody
+    public Map<String,Object> userUpdate(@RequestParam Map<String,String> formData){
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        if(userService.updateUser(formData) == null){
+            resultMap.put("success",false);
+            resultMap.put("msg","更新失败");
+        }else{
+            resultMap.put("success",true);
+        }
+        return resultMap;
+    }
+
+    @RequestMapping("user_delete")
+    @ResponseBody
+    public Map<String,Object> userDelete(@RequestParam("id") int id){
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        userService.delUser(id);
+        resultMap.put("success",true);
+        return resultMap;
     }
 
     @RequestMapping("user_profile")

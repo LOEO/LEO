@@ -4,12 +4,14 @@ import com.leo.dao.UserDao;
 import com.leo.model.User;
 import com.leo.service.UserService;
 import com.leo.util.Base64_Img;
+import com.leo.util.DateUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -37,8 +39,25 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public void addUser(User user) {
+    public void addUser(User user){
         userDao.addUser(user);
+    }
+
+    public String addUser(Map<String,String> formData) {
+        String username = formData.get("username");
+        String passowrd = formData.get("password");
+        String passowrd1 = formData.get("password1");
+        Map<String,Object> resultMap = new HashMap<String, Object>();
+        if(passowrd != null && !passowrd.equals(passowrd1)){
+            return "两次输入的密码不一样！";
+        }
+        User user = findUserByUsername(username);
+        if(user != null){
+            return "用户名已存在！";
+        }
+        user = formData2User(formData,null);
+        userDao.addUser(user);
+        return "success";
     }
 
     @Override
@@ -48,17 +67,11 @@ public class UserServiceImp implements UserService{
 
     public User updateUser(Map<String,String> map){
         User user = userDao.find(map.get("username"));
-        user.setEmail(map.get("email"));
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        try {
-            user.setBirthday(new java.sql.Date(sdf.parse(map.get("birthday")).getTime()));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        if(!user.getPassword().equals(map.get("password"))){
+            return null;
         }
-        user.setAge(Integer.parseInt(map.get("age")));
-        user.setSex(map.get("sex"));
-        user.setPhone(map.get("phone"));
-        user.setNickname(map.get("nickname"));
+        user = formData2User(map,user);
+        user.setEmail(map.get("email"));
         userDao.updateUser(user);
         return user;
     }
@@ -124,5 +137,28 @@ public class UserServiceImp implements UserService{
     @Resource
     public void setUserDao(UserDao userDao) {
         this.userDao = userDao;
+    }
+
+    private User formData2User(Map<String,String> formData,User u){
+        String username = formData.get("username");
+        String passowrd = formData.get("password");
+        String nickname = formData.get("nickname");
+        String sex = formData.get("sex");
+        String email = formData.get("email");
+        String phone = formData.get("phone");
+        String birthday = formData.get("birthday");
+        User user = u;
+        if(user == null){
+            user = new User();
+        }
+        user.setUsername(username);
+        user.setSex(sex);
+        user.setEmail(email);
+        user.setPassword(passowrd);
+        user.setBirthday(DateUtil.util2Sql(DateUtil.str2Date(birthday, "yyyy-MM-dd")));
+        user.setPhone(phone);
+        user.setNickname(nickname);
+        user.setAge(0);
+        return user;
     }
 }

@@ -133,26 +133,12 @@
                         {
                             allowBlank:false,
                             fieldLabel: '密码',
-                            id:"pass",
                             name: 'password',
                             emptyText: '密码',
                             inputType: 'password',
                             blankText:"请输入密码！",
                             minLength:6,
                             minLength:"不能小于6位"
-                        },
-                        {
-                            allowBlank:false,
-                            fieldLabel: '确认密码',
-                            name: 'password1',
-                            emptyText: '确认密码',
-                            inputType: 'password',
-                            blankText:"请确认密码！",
-                            minLength:6,
-                            minLength:"不能小于6位",
-                            vtype:"password",
-                            vtypeText:"两次输入的密码不一致！",
-                            confirmTo:"pass"
                         }
                     ]
                 },
@@ -192,7 +178,6 @@
                                 maxValue: new Date()
                             }]
                     }];
-
                 this.callParent();
             },
             buttons: [{

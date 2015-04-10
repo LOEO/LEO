@@ -19,7 +19,9 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public List<User> findAll() {
-        return hibernateUtil.getAll(User.class);
+        List<User> users = (List<User>)hibernateUtil.find("select new User(id,username,nickname,age,birthday,sex,avatar,email,phone) from User");
+        //List<User> users = (List<User>)hibernateUtil.find("select new User(id,username,nickname,age,birthday) from User");
+        return users;
     }
 
     @Override

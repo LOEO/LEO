@@ -19,7 +19,25 @@ public class User {
     private String avatar;
     private String email;
     private String phone;
-
+    public User(){}
+    public User(int id,String username,String nickname,int age,java.util.Date birthday,String sex,String avatar,String email,String phone){
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+        this.age = age;
+        this.birthday = (Date)birthday;
+        this.sex = sex;
+        this.avatar = avatar;
+        this.email = email;
+        this.phone = phone;
+    }
+    public User(int id,String username,String nickname,int age,java.util.Date birthday){
+        this.id = id;
+        this.username = username;
+        this.nickname = nickname;
+        this.age = age;
+        this.birthday = (Date)birthday;
+    }
     @Id
     @Column(name = "id")
     @GeneratedValue

@@ -16,6 +16,7 @@ public interface UserService {
     public User findUserById(int id);
     public User findUserByUsername(String username);
     public void addUser(User user);
+    public String addUser(Map<String,String> formData);
     public void updateUser(User user);
     public void delUser(User user);
     public void delUser(int id);
