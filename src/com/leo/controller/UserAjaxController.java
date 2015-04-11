@@ -64,9 +64,8 @@ public class UserAjaxController {
 
     @RequestMapping("user_list")
     @ResponseBody
-    public List<User> userListData(ModelMap modelMap){
-        List<User> list = userService.getAllUser();
-        return list;
+    public Map<String,Object> userListData(@RequestParam("start") int start,@RequestParam("limit") int limit){
+        return userService.getPagingUser(start, limit);
     }
 
     @RequestMapping("user_add")

@@ -13,7 +13,8 @@
 <head>
     <title>LEO权限管理系统</title>
     <base href="${ctx}/">
-    <link rel="stylesheet" href="rs/ext4.2/resources/ext-theme-classic/ext-theme-classic-all.css"/>
+<%--    <link rel="stylesheet" href="rs/ext4.2/resources/ext-theme-classic/ext-theme-classic-all.css"/>--%>
+    <link rel="stylesheet" href="rs/ext4.2/resources/ext-theme-neptune/ext-theme-neptune-all.css"/>
     <link rel="stylesheet" href="rs/ext4.2/resources/css/icon.css"/>
     <script type="text/javascript" src="rs/ext4.2/ext-all-dev.js"></script>
     <script type="text/javascript"src="rs/ext4.2/ext-locale-zh_CN.js"></script>

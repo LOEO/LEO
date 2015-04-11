@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by LT on 2014/12/13.
@@ -23,6 +24,12 @@ public class UserDaoImp implements UserDao {
         //List<User> users = (List<User>)hibernateUtil.find("select new User(id,username,nickname,age,birthday) from User");
         return users;
     }
+
+    @Override
+    public Map<String,Object> findByPaging(int start, int limit) {
+        return hibernateUtil.findByPaging(User.class,start,limit);
+    }
+
 
     @Override
     public User find(int id) {

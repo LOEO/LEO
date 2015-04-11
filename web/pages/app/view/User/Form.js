@@ -26,7 +26,6 @@ Ext.define('Leo.view.user.Form', {
                 border: false,
                 autoScroll: true,
                 fit: true,
-                frame: true,
                 fieldDefaults: {
                     labelAlign: 'right',
                     labelWidth: 70

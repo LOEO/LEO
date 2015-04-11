@@ -1,13 +1,17 @@
 package com.leo.util;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -77,6 +81,17 @@ public class HibernateUtil {
 
     public <T> T findUnique(String hql,Map map){
         return (T)this.createQuery(hql,map).setMaxResults(1).uniqueResult();
+    }
+
+    public <T> Map<String,Object> findByPaging(Class<T> entityClass,int start,int limit ){
+        Map<String,Object> result = new HashMap<String, Object>();
+        Criteria criteria = this.getSession().createCriteria(entityClass);
+        long total = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
+        criteria.setProjection(null);
+        List<T> list = criteria.setFirstResult(start).setMaxResults(limit).list();
+        result.put("total",total);
+        result.put("rows",list);
+        return result;
     }
 
     public SessionFactory getSessionFactory() {

@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public interface UserService {
     public List<User> getAllUser();
+    public Map<String,Object> getPagingUser(int pageNo,int pageSize);
     public User findUserById(int id);
     public User findUserByUsername(String username);
     public void addUser(User user);

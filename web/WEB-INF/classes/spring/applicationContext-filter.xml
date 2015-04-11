@@ -27,7 +27,7 @@
         <property name="exclude">
             <list>
                 <value>/rs/*</value>
-                <value>/pages/login.jsp</value>
+                <value>/pages/*</value>
                 <value>/userAjax/register.do</value>
                 <value>/userAjax/login.do</value>
             </list>

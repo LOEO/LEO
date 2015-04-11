@@ -24,7 +24,6 @@ Ext.define('Leo.view.user.List',{
             bbar: {
                 xtype: 'pagingtoolbar',
                 store:'User',
-                pageSize: 10,
                 displayInfo: true,
                 displayMsg: '显示 {0} - {1} 条,共 {2} 条'
             },
@@ -37,6 +36,7 @@ Ext.define('Leo.view.user.List',{
             ]
         })
         this.callParent(arguments);
+        this.store.load();
     }
 
 })

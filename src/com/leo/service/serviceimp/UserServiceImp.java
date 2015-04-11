@@ -29,6 +29,11 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
+    public Map<String,Object> getPagingUser(int start, int limit) {
+        return userDao.findByPaging(start,limit);
+    }
+
+    @Override
     public User findUserById(int id) {
         return userDao.find(id);
     }
