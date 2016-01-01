@@ -1,4 +1,4 @@
-<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.leo.common.Leo" %>
 <%--
   Created by IntelliJ IDEA.
   User: LT
@@ -11,4 +11,5 @@
     System.out.println(request.getContextPath());
     session.invalidate();
     response.sendRedirect(request.getContextPath() + "/jsp/login.jsp");
+    Leo.USER_COUNT--;
 %>

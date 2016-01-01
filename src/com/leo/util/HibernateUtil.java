@@ -4,8 +4,8 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
@@ -83,15 +83,28 @@ public class HibernateUtil {
         return (T)this.createQuery(hql,map).setMaxResults(1).uniqueResult();
     }
 
-    public <T> Map<String,Object> findByPaging(Class<T> entityClass,int start,int limit ){
+    public <T> Map<String,Object> findByPaging(Class<T> entityClass,int start,int limit,String[] property,Object[] values ){
         Map<String,Object> result = new HashMap<String, Object>();
         Criteria criteria = this.getSession().createCriteria(entityClass);
+        if (property != null && values != null) {
+            for (int i = 0; i < property.length; i++) {
+                criteria.add(Restrictions.eq(property[i],values[i]));
+            }
+        }
         long total = (Long)criteria.setProjection(Projections.rowCount()).uniqueResult();
         criteria.setProjection(null);
         List<T> list = criteria.setFirstResult(start).setMaxResults(limit).list();
         result.put("total",total);
         result.put("rows",list);
         return result;
+    }
+
+    public <T> List<T> findByProperty(Class<T> entityClass,String[] property,Object[] values) {
+        Criteria criteria = this.getSession().createCriteria(entityClass);
+        for (int i = 0; i < property.length; i++) {
+            criteria.add(Restrictions.eq(property[i],values[i]));
+        }
+        return (List<T>)criteria.list();
     }
 
     public SessionFactory getSessionFactory() {

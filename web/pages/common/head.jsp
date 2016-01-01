@@ -11,7 +11,8 @@
 %>
 <meta name="description" content="Static &amp; Dynamic Tables" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" href="${ctx}/rs/ext4.2/resources/css/ext-all.css"/>
+<link rel="stylesheet" href="${ctx}/rs/ext4.2/resources/ext-theme-neptune/ext-theme-neptune-all.css"/>
 <link rel="stylesheet" href="${ctx}/rs/ext4.2/resources/css/icon.css"/>
 <script src="${ctx}/rs/ext4.2/ext-all-dev.js"></script>
 <script src="${ctx}/rs/ext4.2/ext-locale-zh_CN.js"></script>
+>>>>>>> Stashed changes

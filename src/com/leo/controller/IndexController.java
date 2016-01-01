@@ -14,3 +14,4 @@ public class IndexController {
         return "app/index";
     }
 }
+

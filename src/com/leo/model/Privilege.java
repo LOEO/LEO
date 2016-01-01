@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by LT on 2014/12/13.
+ * Created by LT on 2015/11/4 0004.
  */
 @Entity
 @Table(name = "t_privilege", schema = "", catalog = "leo")
@@ -22,7 +22,6 @@ public class Privilege {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
     public int getId() {
         return id;
     }
@@ -129,19 +128,19 @@ public class Privilege {
         Privilege privilege = (Privilege) o;
 
         if (id != privilege.id) return false;
-        if (access != null ? !access.equals(privilege.access) : privilege.access != null) return false;
-        if (accessValue != null ? !accessValue.equals(privilege.accessValue) : privilege.accessValue != null)
-            return false;
-        if (createDate != null ? !createDate.equals(privilege.createDate) : privilege.createDate != null) return false;
-        if (createUserId != null ? !createUserId.equals(privilege.createUserId) : privilege.createUserId != null)
-            return false;
         if (master != null ? !master.equals(privilege.master) : privilege.master != null) return false;
         if (masterValue != null ? !masterValue.equals(privilege.masterValue) : privilege.masterValue != null)
             return false;
-        if (modifyDate != null ? !modifyDate.equals(privilege.modifyDate) : privilege.modifyDate != null) return false;
-        if (modifyUserId != null ? !modifyUserId.equals(privilege.modifyUserId) : privilege.modifyUserId != null)
+        if (access != null ? !access.equals(privilege.access) : privilege.access != null) return false;
+        if (accessValue != null ? !accessValue.equals(privilege.accessValue) : privilege.accessValue != null)
             return false;
         if (operation != null ? !operation.equals(privilege.operation) : privilege.operation != null) return false;
+        if (createUserId != null ? !createUserId.equals(privilege.createUserId) : privilege.createUserId != null)
+            return false;
+        if (createDate != null ? !createDate.equals(privilege.createDate) : privilege.createDate != null) return false;
+        if (modifyUserId != null ? !modifyUserId.equals(privilege.modifyUserId) : privilege.modifyUserId != null)
+            return false;
+        if (modifyDate != null ? !modifyDate.equals(privilege.modifyDate) : privilege.modifyDate != null) return false;
 
         return true;
     }

@@ -9,7 +9,9 @@ CREATE TABLE t_user(
   sex VARCHAR (4) ,
   avatar VARCHAR (50) ,
   email VARCHAR (30) ,
-  phone VARCHAR (20)
+  phone VARCHAR (20),
+  orgId int,
+  CONSTRAINT FOREIGN KEY(userId) REFERENCES t_org(id)
 )ENGINE=INNODB CHARSET=UTF8;
 
 CREATE TABLE t_role(
@@ -43,6 +45,7 @@ CREATE TABLE t_org(
   id INT PRIMARY KEY AUTO_INCREMENT,
   name VARCHAR(20),
   pid INT,
+  leaf VARCHAR(10),
   descp VARCHAR(200)
 )ENGINE=INNODB CHARSET=UTF8;
 

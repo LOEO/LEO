@@ -1,18 +1,17 @@
 package com.leo.controller;
 
-import com.leo.listener.OnlineUserBoundingListener;
 import com.leo.model.User;
 import com.leo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,7 +20,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 @SessionAttributes({"curUserName","curUser"})
-public class UserController {
+public class UserController extends BaseController{
     private UserService userService;
 
 
@@ -62,7 +61,7 @@ public class UserController {
         User user = userService.uploadAvatar(username,avatar,path,filename);
         if(user!=null){
             modelMap.put("curUser",user);
-            return "success";
+            return SUCCESS;
         }
         return "fail";
     }

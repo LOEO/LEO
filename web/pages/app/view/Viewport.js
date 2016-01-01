@@ -3,12 +3,14 @@
  */
 Ext.define('Leo.view.Viewport',{
     extend:'Ext.container.Viewport',
-    requires:['Leo.view.menu.Accordion','Leo.view.menu.List','Leo.view.MainTab'],
+    requires:['Leo.view.menu.Accordion','Leo.view.menu.List','Leo.view.MainTab','Leo.view.Header'],
     layout:'border',
+    renderTo:"content",
     items:[{
         region: 'north',
         splitterResize: false,
-        height: 40
+        height: 40,
+        xtype:"appheader"
     },{
         collapsible: true,
         title: '菜单',
@@ -23,7 +25,7 @@ Ext.define('Leo.view.Viewport',{
         region: 'center',
         minHeight: 80,
         xtype: 'maintab'
-    },{
+    }/*,{
         region: 'east',
         collapsible: true,
         floatable: true,
@@ -37,5 +39,5 @@ Ext.define('Leo.view.Viewport',{
             padding: 5,
             align: 'stretch'
         }
-    }]
+    }*/]
 });

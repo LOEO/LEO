@@ -6,7 +6,7 @@ Ext.application({
     name:'Leo',
     appFolder:'pages/app',
     autoCreateViewport: true,
-    controllers:['Menu'],
+    controllers:['Main','Menu','User','Org','Role'],
     launch:function(){
     }
 });

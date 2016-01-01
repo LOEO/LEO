@@ -15,6 +15,7 @@
     </style>
 </head>
 <body>
+
     <div id="loginBox"></div>
 <div id="reigsterBox"></div>
 <script>
@@ -72,10 +73,12 @@
                             myMask.show();
                             form.submit({
                                 success: function(form, action) {
+                                    debugger;
                                     myMask.hide();
                                     window.location = "${ctx}/index.do"
                                 },
                                 failure: function(form, action) {
+                                    debugger;
                                     myMask.hide();
                                     if(action.result){
                                         Ext.Msg.alert('提示', action.result.msg);

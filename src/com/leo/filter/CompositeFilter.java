@@ -4,17 +4,10 @@ package com.leo.filter;
  * Created by LT on 2014/12/20.
  */
 
+import javax.servlet.*;
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 
 public class CompositeFilter implements Filter {
     private List<? extends Filter> filters = new ArrayList<Filter>();

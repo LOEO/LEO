@@ -14,14 +14,14 @@ Ext.define('Leo.store.menu.List',{
         {
             id:'1',
             text: '组织架构',
-            ctrl:'User',
-            view:"userlist"
+            ctrl:'Org',
+            view:"orglayout"
         },
         {
             id:'2',
             text: '角色管理',
             ctrl:'User',
-            view:"userlist"
+            view:"rolelist"
         },
         {
             id:'3',

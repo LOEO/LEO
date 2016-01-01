@@ -3,12 +3,8 @@
  */
 Ext.define('Leo.controller.Menu',{
     extend:'Ext.app.Controller',
-    stores:['menu.List','User'],
-    models:['menu.List','User'],
-    requires: [
-        'Leo.store.menu.List',
-        'Leo.view.user.List'
-    ],
+    stores:['menu.List'],
+    models:['menu.List'],
     refs:[
         {ref:'menuList',selector:'menulist'},
         {ref:'menuData',selector:'menulist dataview'},
@@ -22,9 +18,9 @@ Ext.define('Leo.controller.Menu',{
         });
     },
     onLaunch: function() {
+        debugger;
         var dataview = this.getMenuData(),
             store = this.getMenuListStore();
-
         dataview.bindStore(store);
         dataview.getSelectionModel();//.select(store.getAt(0));
     },

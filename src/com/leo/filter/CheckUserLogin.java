@@ -1,7 +1,5 @@
 package com.leo.filter;
 
-import org.springframework.http.HttpRequest;
-
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +12,10 @@ import java.util.List;
  */
 public class CheckUserLogin implements Filter {
     private List<String> exclude;
-    @Override
     public void init(FilterConfig filterConfig) throws ServletException {
 
     }
 
-    @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest hReq = (HttpServletRequest)servletRequest;
         HttpServletResponse hRes = (HttpServletResponse)servletResponse;
@@ -52,7 +48,6 @@ public class CheckUserLogin implements Filter {
         }
     }
 
-    @Override
     public void destroy() {
 
     }

@@ -3,7 +3,7 @@ package com.leo.model;
 import javax.persistence.*;
 
 /**
- * Created by LT on 2014/12/13.
+ * Created by LT on 2015/11/4 0004.
  */
 @Entity
 @Table(name = "t_org", schema = "", catalog = "leo")
@@ -12,10 +12,10 @@ public class Org {
     private String name;
     private Integer pid;
     private String descp;
+    private String leaf;
 
     @Id
     @Column(name = "id")
-    @GeneratedValue
     public int getId() {
         return id;
     }
@@ -54,6 +54,16 @@ public class Org {
         this.descp = descp;
     }
 
+    @Basic
+    @Column(name = "leaf")
+    public String getLeaf() {
+        return leaf;
+    }
+
+    public void setLeaf(String leaf) {
+        this.leaf = leaf;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,9 +72,10 @@ public class Org {
         Org org = (Org) o;
 
         if (id != org.id) return false;
-        if (descp != null ? !descp.equals(org.descp) : org.descp != null) return false;
         if (name != null ? !name.equals(org.name) : org.name != null) return false;
         if (pid != null ? !pid.equals(org.pid) : org.pid != null) return false;
+        if (descp != null ? !descp.equals(org.descp) : org.descp != null) return false;
+        if (leaf != null ? !leaf.equals(org.leaf) : org.leaf != null) return false;
 
         return true;
     }
@@ -75,6 +86,7 @@ public class Org {
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (pid != null ? pid.hashCode() : 0);
         result = 31 * result + (descp != null ? descp.hashCode() : 0);
+        result = 31 * result + (leaf != null ? leaf.hashCode() : 0);
         return result;
     }
 }

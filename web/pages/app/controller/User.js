@@ -11,9 +11,6 @@ Ext.define('Leo.controller.User',{
         {ref:"userform",selector:'userform'}
     ],
     init:function(){
-/*        var store = this.getUserStore();
-        this.getUserlist().reconfigure(store);
-        store.load();*/
         this.control({
             'userlist button[action=add]':{
                 click:this.addUser
@@ -78,6 +75,7 @@ Ext.define('Leo.controller.User',{
             form.submit({
                 success: function (form, action) {
                     myMask.hide();
+                    me.getUserlist().getSelectionModel().deselectAll();
                     me.getUserlist().getStore().reload();
                     me.getUserform().close();
                 },
@@ -93,7 +91,7 @@ Ext.define('Leo.controller.User',{
         }
     },
     deleteUser:function(){
-        var list = this.getUserlist(),
+        var list = this.getRolelist(),
             me = this,
             selectionModel = list.getSelectionModel();
         if(selectionModel.hasSelection()){
@@ -108,8 +106,8 @@ Ext.define('Leo.controller.User',{
                         },
                         success:function(res){
                             Ext.Msg.alert('提示', '删除成功！');
-                            me.getUserStore().remove(record);
-                            me.getUserlist().getStore().reload();
+                            me.getRoleStore().remove(record);
+                            me.getRolelist().getStore().reload();
                         },
                         failure:function(){
                             Ext.Msg.alert('提示', '删除失败！');

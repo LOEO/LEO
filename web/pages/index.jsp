@@ -188,6 +188,5 @@
             expanded: true
         }
     });
-    debugger;
 </script>
 </body>

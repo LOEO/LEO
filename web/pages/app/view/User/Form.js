@@ -7,6 +7,7 @@ Ext.define('Leo.view.user.Form', {
     title:'用户信息',
     autoShow:true,
     resizable:false,
+    modal:true,
     initComponent: function () {
         Ext.apply(Ext.form.VTypes, {
             password: function (val, field) {

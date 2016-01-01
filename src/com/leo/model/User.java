@@ -1,14 +1,21 @@
 package com.leo.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.leo.util.DateUtil;
+
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
- * Created by LT on 2014/12/13.
+ * Created by LT on 2015/11/4 0004.
  */
 @Entity
 @Table(name = "t_user", schema = "", catalog = "leo")
 public class User {
+    public interface WithoutPasswordView{}
+    public interface WithPasswordView extends WithoutPasswordView{}
     private int id;
     private String username;
     private String password;
@@ -19,28 +26,21 @@ public class User {
     private String avatar;
     private String email;
     private String phone;
-    public User(){}
-    public User(int id,String username,String nickname,int age,java.util.Date birthday,String sex,String avatar,String email,String phone){
-        this.id = id;
-        this.username = username;
-        this.nickname = nickname;
-        this.age = age;
-        this.birthday = (Date)birthday;
-        this.sex = sex;
-        this.avatar = avatar;
-        this.email = email;
-        this.phone = phone;
+    private Org tOrgByOrgId;
+    private Set<Role> roles = new HashSet<Role>();
+
+    @ManyToMany(mappedBy = "users",cascade = CascadeType.ALL)
+    public Set<Role> getRoles() {
+        return roles;
     }
-    public User(int id,String username,String nickname,int age,java.util.Date birthday){
-        this.id = id;
-        this.username = username;
-        this.nickname = nickname;
-        this.age = age;
-        this.birthday = (Date)birthday;
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
+
     @Id
     @Column(name = "id")
-    @GeneratedValue
+    @JsonView(WithoutPasswordView.class)
     public int getId() {
         return id;
     }
@@ -51,6 +51,7 @@ public class User {
 
     @Basic
     @Column(name = "username")
+    @JsonView(WithoutPasswordView.class)
     public String getUsername() {
         return username;
     }
@@ -61,6 +62,7 @@ public class User {
 
     @Basic
     @Column(name = "password")
+    @JsonView(WithPasswordView.class)
     public String getPassword() {
         return password;
     }
@@ -71,6 +73,7 @@ public class User {
 
     @Basic
     @Column(name = "nickname")
+    @JsonView(WithoutPasswordView.class)
     public String getNickname() {
         return nickname;
     }
@@ -80,9 +83,10 @@ public class User {
     }
 
     @Basic
-    @Column(name = "age")
+    @Transient
+    @JsonView(WithoutPasswordView.class)
     public Integer getAge() {
-        return age;
+        return DateUtil.getAgeByBirthday(birthday);
     }
 
     public void setAge(Integer age) {
@@ -91,6 +95,7 @@ public class User {
 
     @Basic
     @Column(name = "birthday")
+    @JsonView(WithoutPasswordView.class)
     public Date getBirthday() {
         return birthday;
     }
@@ -101,6 +106,7 @@ public class User {
 
     @Basic
     @Column(name = "sex")
+    @JsonView(WithoutPasswordView.class)
     public String getSex() {
         return sex;
     }
@@ -111,6 +117,7 @@ public class User {
 
     @Basic
     @Column(name = "avatar")
+    @JsonView(WithoutPasswordView.class)
     public String getAvatar() {
         return avatar;
     }
@@ -121,6 +128,7 @@ public class User {
 
     @Basic
     @Column(name = "email")
+    @JsonView(WithoutPasswordView.class)
     public String getEmail() {
         return email;
     }
@@ -131,6 +139,7 @@ public class User {
 
     @Basic
     @Column(name = "phone")
+    @JsonView(WithoutPasswordView.class)
     public String getPhone() {
         return phone;
     }
@@ -148,14 +157,14 @@ public class User {
 
         if (id != user.id) return false;
         if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (age != null ? !age.equals(user.age) : user.age != null) return false;
-        if (avatar != null ? !avatar.equals(user.avatar) : user.avatar != null) return false;
-        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (nickname != null ? !nickname.equals(user.nickname) : user.nickname != null) return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
+        if (nickname != null ? !nickname.equals(user.nickname) : user.nickname != null) return false;
+        if (age != null ? !age.equals(user.age) : user.age != null) return false;
+        if (birthday != null ? !birthday.equals(user.birthday) : user.birthday != null) return false;
         if (sex != null ? !sex.equals(user.sex) : user.sex != null) return false;
+        if (avatar != null ? !avatar.equals(user.avatar) : user.avatar != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (phone != null ? !phone.equals(user.phone) : user.phone != null) return false;
 
         return true;
     }
@@ -173,5 +182,15 @@ public class User {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (phone != null ? phone.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "orgId", referencedColumnName = "id")
+    public Org gettOrgByOrgId() {
+        return tOrgByOrgId;
+    }
+
+    public void settOrgByOrgId(Org tOrgByOrgId) {
+        this.tOrgByOrgId = tOrgByOrgId;
     }
 }
