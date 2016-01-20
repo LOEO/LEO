@@ -1,6 +1,6 @@
 package com.leo.dao;
 
-import com.leo.model.Org;
+import com.leo.model.SysOrg;
 import com.leo.util.HibernateUtil;
 import org.springframework.stereotype.Repository;
 
@@ -14,39 +14,39 @@ import java.util.List;
 public class OrgDao {
     HibernateUtil hibernateUtil;
 
-    public List<Org> getOrgList() {
-        return hibernateUtil.getAll(Org.class);
+    public List<SysOrg> getOrgList() {
+        return hibernateUtil.getAll(SysOrg.class);
     }
 
-    public List<Org> getOrgList(int pid) {
-        return getOrgList("from Org org where org.pid = ?",pid);
+    public List<SysOrg> getOrgList(int pid) {
+        return getOrgList("from SysOrg org where org.pid = ?",pid);
     }
 
-    public List<Org> getOrgList(String hql,Object... values){
+    public List<SysOrg> getOrgList(String hql,Object... values){
         return hibernateUtil.find(hql,values);
     }
 
-    public Org getOrgById(int id) {
-        return hibernateUtil.get(Org.class, id);
+    public SysOrg getOrgById(int id) {
+        return hibernateUtil.get(SysOrg.class, id);
     }
 
-    public boolean addOrg(Org org) {
-        hibernateUtil.save(org);
+    public boolean addOrg(SysOrg sysOrg) {
+        hibernateUtil.save(sysOrg);
         return true;
     }
 
-    public boolean updateOrg(Org org) {
-        hibernateUtil.save(org);
+    public boolean updateOrg(SysOrg sysOrg) {
+        hibernateUtil.save(sysOrg);
         return true;
     }
 
-    public boolean deleteOrg(Org org) {
-        hibernateUtil.remove(org);
+    public boolean deleteOrg(SysOrg sysOrg) {
+        hibernateUtil.remove(sysOrg);
         return true;
     }
 
     public boolean deleteOrgById(int id) {
-        hibernateUtil.removeById(Org.class,id);
+        hibernateUtil.removeById(SysOrg.class,id);
         return true;
     }
 

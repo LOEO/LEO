@@ -1,6 +1,6 @@
 package com.leo.controller;
 
-import com.leo.model.User;
+import com.leo.model.SysUser;
 import com.leo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -39,8 +39,8 @@ public class UserController extends BaseController{
         if(username == null){
             username = modelMap.get("curUserName").toString();
         }
-        User user = userService.findUserByUsername(username);
-        modelMap.addAttribute("user",user);
+        SysUser sysUser = userService.findUserByUsername(username);
+        modelMap.addAttribute("user", sysUser);
         return "user/user_profile";
     }
 
@@ -58,9 +58,9 @@ public class UserController extends BaseController{
         String username = modelMap.get("curUserName").toString();
         String filename = System.currentTimeMillis()+".jpg";
         String path = req.getServletContext().getRealPath("/upload");
-        User user = userService.uploadAvatar(username,avatar,path,filename);
-        if(user!=null){
-            modelMap.put("curUser",user);
+        SysUser sysUser = userService.uploadAvatar(username,avatar,path,filename);
+        if(sysUser !=null){
+            modelMap.put("curUser", sysUser);
             return SUCCESS;
         }
         return "fail";

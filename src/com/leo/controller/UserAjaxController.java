@@ -3,7 +3,7 @@ package com.leo.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.leo.listener.OnlineUserBoundingListener;
-import com.leo.model.User;
+import com.leo.model.SysUser;
 import com.leo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,11 +33,11 @@ public class UserAjaxController extends BaseController{
     @RequestMapping(value="login",method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> userLogin(String username,String password,ModelMap modelMap,HttpSession session){
-        User user = userService.userLogin(username,password);
+        SysUser sysUser = userService.userLogin(username,password);
         Map<String,Object> map = new HashMap<String, Object>();
-        if(user != null){
+        if(sysUser != null){
             modelMap.addAttribute("curUserName", username);
-            session.setAttribute("onlineUserBindingListener",new OnlineUserBoundingListener(user));
+            session.setAttribute("onlineUserBindingListener",new OnlineUserBoundingListener(sysUser));
 /*            if (!Leo.USERS.containsKey(user.getUsername())) {
                 Leo.USERS.put(user.getUsername(), user);
                 Leo.USER_COUNT++;
@@ -68,7 +68,7 @@ public class UserAjaxController extends BaseController{
 
     @RequestMapping("user_list")
     @ResponseBody
-    @JsonView(User.WithoutPasswordView.class)
+    @JsonView(SysUser.WithoutPasswordView.class)
     public Map<String,Object> userList(int start,int limit){
         return userService.getPagingUser(start, limit,null,null);
     }
@@ -114,8 +114,8 @@ public class UserAjaxController extends BaseController{
         if(username == null){
             username = modelMap.get("curUserName").toString();
         }
-        User user = userService.findUserByUsername(username);
-        modelMap.addAttribute("user",user);
+        SysUser sysUser = userService.findUserByUsername(username);
+        modelMap.addAttribute("user", sysUser);
         return "user/user_profile";
     }
 
@@ -133,9 +133,9 @@ public class UserAjaxController extends BaseController{
         String username = modelMap.get("curUserName").toString();
         String filename = System.currentTimeMillis()+".jpg";
         String path = req.getServletContext().getRealPath("/upload");
-        User user = userService.uploadAvatar(username,avatar,path,filename);
-        if(user!=null){
-            modelMap.put("curUser",user);
+        SysUser sysUser = userService.uploadAvatar(username,avatar,path,filename);
+        if(sysUser !=null){
+            modelMap.put("curUser", sysUser);
             return SUCCESS;
         }
         return "fail";

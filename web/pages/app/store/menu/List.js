@@ -32,8 +32,8 @@ Ext.define('Leo.store.menu.List',{
         {
             id:'4',
             text: '菜单管理',
-            ctrl:'User',
-            view:"userlist"
+            ctrl:'Menu',
+            view:"menugrid"
         }
     ]
 });

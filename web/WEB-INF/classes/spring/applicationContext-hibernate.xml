@@ -19,9 +19,9 @@
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
+               <!-- <prop key="hibernate.hbm2ddl.auto">update</prop>-->
                 <prop key="hibernate.show_sql">true</prop>
-                <prop key="hiberante.format_sql">true</prop>
+                <prop key="hibernate.format_sql">true</prop>
                 <prop key="hibernate.connection.url"><![CDATA[jdbc:mysql://localhost:3306/leo]]></prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
             </props>

@@ -4,7 +4,6 @@
 Ext.define('Leo.view.user.List',{
     extend:'Ext.grid.Panel',
     alias:'widget.userlist',
-    fit: true,
     fix: true,
     columnLines: true,
     initComponent:function(){
@@ -31,7 +30,9 @@ Ext.define('Leo.view.user.List',{
                 {
                     xtype: 'button', action:'add',text: '添加', iconCls: 'Applicationadd'
                 },
+                '-',
                 {xtype: 'button', action:'update',text: '修改', iconCls: 'Applicationedit'},
+                '-',
                 {xtype: 'button', action:'delete',text: '删除', iconCls: 'Applicationdelete'}
             ]
         })

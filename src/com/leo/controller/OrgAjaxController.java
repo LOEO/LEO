@@ -1,6 +1,6 @@
 package com.leo.controller;
 
-import com.leo.model.Org;
+import com.leo.model.SysOrg;
 import com.leo.service.OrgService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +27,12 @@ public class OrgAjaxController extends BaseController{
         String pid = map.get("pid");
         String name = map.get("name");
         String descp = map.get("descp");
-        Org org = new Org();
-        org.setName(name);
-        org.setDescp(descp);
-        org.setPid(Integer.parseInt(pid));
-        org.setLeaf("true");
-        orgService.addOrg(org);
+        SysOrg sysOrg = new SysOrg();
+        sysOrg.setName(name);
+        sysOrg.setDescp(descp);
+        sysOrg.setPid(Integer.parseInt(pid));
+        sysOrg.setLeaf("true");
+        orgService.addOrg(sysOrg);
         resultMap.put(SUCCESS,true);
         return resultMap;
     }
@@ -41,7 +41,7 @@ public class OrgAjaxController extends BaseController{
     @ResponseBody
     public Map<String,Object> orgList(@RequestParam("node") int pid){
         Map<String,Object> result = new HashMap<String,Object>();
-        List<Org> list = orgService.getOrgList(pid);
+        List<SysOrg> list = orgService.getOrgList(pid);
         result.put(SUCCESS,true);
         result.put("children",list);
         return result;

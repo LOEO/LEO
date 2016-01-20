@@ -1,6 +1,6 @@
 package com.leo.listener;
 
-import com.leo.model.User;
+import com.leo.model.SysUser;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
@@ -13,29 +13,29 @@ import java.util.Map;
  * Created by LT on 14-7-17.
  */
 public class OnlineUserBoundingListener implements HttpSessionBindingListener {
-    private User user;
+    private SysUser sysUser;
 
     public OnlineUserBoundingListener(){
     }
 
-    public OnlineUserBoundingListener(User user){
-        this.user = user;
+    public OnlineUserBoundingListener(SysUser sysUser){
+        this.sysUser = sysUser;
     }
 
     public void valueBound(HttpSessionBindingEvent httpSessionBindingEvent) {
         HttpSession session = httpSessionBindingEvent.getSession();
         ServletContext application = session.getServletContext();
-        session.setAttribute("curUserName",user.getUsername());
-        session.setAttribute("curUser",user);
+        session.setAttribute("curUserName", sysUser.getUsername());
+        session.setAttribute("curUser", sysUser);
         // 把用户名放入在线列表
-        Map<String,User> onlineUsers = (Map<String, User>) application.getAttribute("users");
+        Map<String,SysUser> onlineUsers = (Map<String, SysUser>) application.getAttribute("users");
         // 第一次使用前，需要初始化
         if (onlineUsers == null) {
-            onlineUsers = new HashMap<String, User>();
+            onlineUsers = new HashMap<String, SysUser>();
             application.setAttribute("users", onlineUsers);
         }
-        if (!onlineUsers.containsKey(user.getUsername())) {
-            onlineUsers.put(user.getUsername(), user);
+        if (!onlineUsers.containsKey(sysUser.getUsername())) {
+            onlineUsers.put(sysUser.getUsername(), sysUser);
         }
         application.setAttribute("onlineUsers",onlineUsers.size());
     }
@@ -43,8 +43,8 @@ public class OnlineUserBoundingListener implements HttpSessionBindingListener {
     public void valueUnbound(HttpSessionBindingEvent httpSessionBindingEvent) {
         HttpSession session = httpSessionBindingEvent.getSession();
         ServletContext application = session.getServletContext();
-        HashMap<String,User> onlineUsers = (HashMap<String, User>) application.getAttribute("users");
-        onlineUsers.remove(this.user.getUsername());
+        HashMap<String,SysUser> onlineUsers = (HashMap<String, SysUser>) application.getAttribute("users");
+        onlineUsers.remove(this.sysUser.getUsername());
         application.setAttribute("onlineUsers",onlineUsers.size());
     }
 }

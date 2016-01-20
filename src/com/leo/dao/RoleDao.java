@@ -1,6 +1,6 @@
 package com.leo.dao;
 
-import com.leo.model.Role;
+import com.leo.model.SysRole;
 import com.leo.util.HibernateUtil;
 import org.springframework.stereotype.Repository;
 
@@ -15,15 +15,15 @@ public class RoleDao {
     private HibernateUtil hibernateUtil;
 
     public Map<String,Object> list(int start, int limit,String[] property,Object[] values) {
-        return hibernateUtil.findByPaging(Role.class, start, limit, property, values);
+        return hibernateUtil.findByPaging(SysRole.class, start, limit, property, values);
     }
 
-    public void save(Role role){
-        hibernateUtil.save(role);
+    public void save(SysRole sysRole){
+        hibernateUtil.save(sysRole);
     }
 
     public void del(int id){
-        hibernateUtil.removeById(Role.class,id);
+        hibernateUtil.removeById(SysRole.class,id);
     }
 
     @Resource

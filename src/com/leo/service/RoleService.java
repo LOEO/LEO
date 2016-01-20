@@ -1,7 +1,7 @@
 package com.leo.service;
 
 import com.leo.dao.RoleDao;
-import com.leo.model.Role;
+import com.leo.model.SysRole;
 import com.leo.util.EntityUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,8 +22,8 @@ public class RoleService {
     }
 
     public void save(Map<String,Object> formData) {
-        Role role = EntityUtil.buildEntity(Role.class, formData);
-        roleDao.save(role);
+        SysRole sysRole = EntityUtil.buildEntity(SysRole.class, formData);
+        roleDao.save(sysRole);
     }
 
     public void del(int id) {

@@ -4,7 +4,6 @@
 Ext.define('Leo.view.role.List',{
     extend:'Ext.grid.Panel',
     alias:'widget.rolelist',
-    fit: true,
     fix: true,
     columnLines: true,
     store:"Role",

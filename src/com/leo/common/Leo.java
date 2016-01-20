@@ -1,6 +1,6 @@
 package com.leo.common;
 
-import com.leo.model.User;
+import com.leo.model.SysUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
@@ -12,5 +12,5 @@ import java.util.Map;
 @Repository
 public class Leo {
     public static int USER_COUNT=0;
-    public static Map<String, User> USERS = new HashMap<String, User>();
+    public static Map<String, SysUser> USERS = new HashMap<String, SysUser>();
 }

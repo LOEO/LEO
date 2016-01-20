@@ -1,6 +1,6 @@
 package com.leo.dao;
 
-import com.leo.model.User;
+import com.leo.model.SysUser;
 import com.leo.util.HibernateUtil;
 import org.springframework.stereotype.Repository;
 
@@ -15,42 +15,42 @@ import java.util.Map;
 public class UserDao {
     private HibernateUtil hibernateUtil;
 
-    public List<User> findAll() {
-        List<User> users = (List<User>)hibernateUtil.find("select new User(id,username,nickname,age,birthday,sex,avatar,email,phone) from User");
-        return users;
+    public List<SysUser> findAll() {
+        List<SysUser> sysUsers = (List<SysUser>)hibernateUtil.find("select new SysUser(id,username,nickname,age,birthday,sex,avatar,email,phone) from SysUser");
+        return sysUsers;
     }
 
     public Map<String,Object> findByPaging(int start, int limit,String[] property,Object[] values) {
-        return hibernateUtil.findByPaging(User.class,start,limit,property,values);
+        return hibernateUtil.findByPaging(SysUser.class,start,limit,property,values);
     }
 
 
-    public User find(int id) {
+    public SysUser find(int id) {
         return null;
     }
 
-    public User find(String username) {
-        return hibernateUtil.findUnique("from User u where u.username = ?",username);
+    public SysUser find(String username) {
+        return hibernateUtil.findUnique("from SysUser u where u.username = ?",username);
     }
 
-    public void addUser(User user) {
-        hibernateUtil.save(user);
+    public void addUser(SysUser sysUser) {
+        hibernateUtil.save(sysUser);
     }
 
-    public void updateUser(User user) {
-        hibernateUtil.save(user);
+    public void updateUser(SysUser sysUser) {
+        hibernateUtil.save(sysUser);
     }
 
-    public void delUser(User user) {
-        hibernateUtil.remove(user);
+    public void delUser(SysUser sysUser) {
+        hibernateUtil.remove(sysUser);
     }
 
     public void delUser(int id) {
-        hibernateUtil.removeById(User.class,id);
+        hibernateUtil.removeById(SysUser.class,id);
     }
 
-    public List<User> findUserByProperty(String[] property,Object[] values) {
-        return hibernateUtil.findByProperty(User.class, property, values);
+    public List<SysUser> findUserByProperty(String[] property,Object[] values) {
+        return hibernateUtil.findByProperty(SysUser.class, property, values);
     }
 
 

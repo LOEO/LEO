@@ -23,10 +23,12 @@
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
         <module name="leo" />
+        <module name="LEO" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="leo" target="1.5" />
+      <module name="LEO" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

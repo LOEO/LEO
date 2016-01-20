@@ -1,4 +1,4 @@
-<%@ page import="com.leo.model.User" %>
+<%@ page import="com.leo.model.SysUser" %>
 <%--
   Created by IntelliJ IDEA.
   User: LT
@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     pageContext.setAttribute("ctx",request.getContextPath());
-    User user = (User) session.getAttribute("curUser");
+    SysUser sysUser = (SysUser) session.getAttribute("curUser");
 %>
 <html>
 <head>
@@ -26,7 +26,7 @@
         var LEO = LEO || {};
         LEO.curUserNickName = '${curUser.nickname}';
         LEO.online =${onlineUsers};
-        LEO.curUserName = '<%=user.getUsername()%>';
+        LEO.curUserName = '<%=sysUser.getUsername()%>';
     </script>
 </head>
 <body>

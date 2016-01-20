@@ -1,7 +1,7 @@
 package com.leo.service;
 
 import com.leo.dao.OrgDao;
-import com.leo.model.Org;
+import com.leo.model.SysOrg;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,31 +16,31 @@ import java.util.List;
 public class OrgService {
     private OrgDao orgDao;
 
-    public List<Org> getOrgList(int pid) {
+    public List<SysOrg> getOrgList(int pid) {
         return orgDao.getOrgList(pid);
     }
 
-    public boolean addOrg(Org org) {
-        if(org.getPid()!=0){
-            Org parent = orgDao.getOrgById(org.getPid());
+    public boolean addOrg(SysOrg sysOrg) {
+        if(sysOrg.getPid()!=0){
+            SysOrg parent = orgDao.getOrgById(sysOrg.getPid());
             parent.setLeaf("false");
         }
-        return orgDao.addOrg(org);
+        return orgDao.addOrg(sysOrg);
     }
 
     public boolean updateOrg(int id,String name,String descp) {
-        Org org = orgDao.getOrgById(id);
-        org.setName(name);
-        org.setDescp(descp);
-        return orgDao.updateOrg(org);
+        SysOrg sysOrg = orgDao.getOrgById(id);
+        sysOrg.setName(name);
+        sysOrg.setDescp(descp);
+        return orgDao.updateOrg(sysOrg);
     }
 
     public boolean deleteOrg(int id,int pid) {
         orgDao.deleteOrgById(id);
-        List<Org> orgs = orgDao.getOrgList(pid);
+        List<SysOrg> orgs = orgDao.getOrgList(pid);
         if(orgs == null || orgs.size() == 0){
-            Org org = orgDao.getOrgById(pid);
-            org.setLeaf("true");
+            SysOrg sysOrg = orgDao.getOrgById(pid);
+            sysOrg.setLeaf("true");
         }
         return true;
     }

@@ -1,7 +1,7 @@
 package com.leo.service;
 
 import com.leo.dao.UserDao;
-import com.leo.model.User;
+import com.leo.model.SysUser;
 import com.leo.util.Base64_Img;
 import com.leo.util.DateUtil;
 import com.leo.util.EntityUtil;
@@ -21,7 +21,7 @@ import java.util.Map;
 public class UserService {
     private UserDao userDao;
 
-    public List<User> getAllUser() {
+    public List<SysUser> getAllUser() {
         return userDao.findAll();
     }
 
@@ -29,16 +29,16 @@ public class UserService {
         return userDao.findByPaging(start,limit,property,values);
     }
 
-    public User findUserById(int id) {
+    public SysUser findUserById(int id) {
         return userDao.find(id);
     }
 
-    public User findUserByUsername(String username) {
+    public SysUser findUserByUsername(String username) {
         return userDao.find(username);
     }
 
-    public void addUser(User user){
-        userDao.addUser(user);
+    public void addUser(SysUser sysUser){
+        userDao.addUser(sysUser);
     }
 
     public String addUser(Map<String,Object> formData) {
@@ -49,44 +49,44 @@ public class UserService {
         if(passowrd != null && !passowrd.equals(passowrd1)){
             return "两次输入的密码不一样！";
         }
-        User user = findUserByUsername(username);
-        if(user != null){
+        SysUser sysUser = findUserByUsername(username);
+        if(sysUser != null){
             return "用户名已存在！";
         }
         //user = formData2User(formData,null);
-        user = EntityUtil.buildEntity(User.class, formData);
-        userDao.addUser(user);
+        sysUser = EntityUtil.buildEntity(SysUser.class, formData);
+        userDao.addUser(sysUser);
         return "SUCCESS";
     }
 
-    public void updateUser(User user) {
-        userDao.updateUser(user);
+    public void updateUser(SysUser sysUser) {
+        userDao.updateUser(sysUser);
     }
 
-    public User updateUser(Map<String,String> map){
-        User user = userDao.find(map.get("username"));
-        if(!user.getPassword().equals(map.get("password"))){
+    public SysUser updateUser(Map<String,String> map){
+        SysUser sysUser = userDao.find(map.get("username"));
+        if(!sysUser.getPassword().equals(map.get("password"))){
             return null;
         }
-        user = formData2User(map,user);
-        user.setEmail(map.get("email"));
-        userDao.updateUser(user);
-        return user;
+        sysUser = formData2User(map, sysUser);
+        sysUser.setEmail(map.get("email"));
+        userDao.updateUser(sysUser);
+        return sysUser;
     }
 
-    public User uploadAvatar(String username,String avatar,String path,String filename){
+    public SysUser uploadAvatar(String username,String avatar,String path,String filename){
         avatar = avatar.replace("data:image/png;base64,","");
         if(Base64_Img.GenerateImage(avatar, path + "\\" + filename)){
-            User user = userDao.find(username);
-            user.setAvatar(filename);
-            userDao.updateUser(user);
-            return user;
+            SysUser sysUser = userDao.find(username);
+            sysUser.setAvatar(filename);
+            userDao.updateUser(sysUser);
+            return sysUser;
         }
         return null;
     }
 
-    public void delUser(User user) {
-        userDao.delUser(user);
+    public void delUser(SysUser sysUser) {
+        userDao.delUser(sysUser);
     }
 
     public void delUser(int id) {
@@ -94,17 +94,17 @@ public class UserService {
     }
 
     public boolean exist(String username) {
-        User user = userDao.find(username);
-        if(user == null){
+        SysUser sysUser = userDao.find(username);
+        if(sysUser == null){
             return false;
         }
         return true;
     }
 
-    public User userLogin(String username, String password) {
-        User user = userDao.find(username);
-        if(user!=null && user.getPassword().equals(password)){
-            return user;
+    public SysUser userLogin(String username, String password) {
+        SysUser sysUser = userDao.find(username);
+        if(sysUser !=null && sysUser.getPassword().equals(password)){
+            return sysUser;
         }
         return null;
     }
@@ -117,17 +117,17 @@ public class UserService {
             return "两次输入的密码不一致!";
         }
         if(!this.exist(username)){
-            User user = new User();
-            user.setUsername(username);
-            user.setEmail(map.get("email"));
-            user.setPassword(password);
-            userDao.addUser(user);
+            SysUser sysUser = new SysUser();
+            sysUser.setUsername(username);
+            sysUser.setEmail(map.get("email"));
+            sysUser.setPassword(password);
+            userDao.addUser(sysUser);
             return "注册成功！";
         }
         return "用户名已存在！";
     }
 
-    public List<User> findUserByOrgId(int orgId) {
+    public List<SysUser> findUserByOrgId(int orgId) {
         return userDao.findUserByProperty(new String[]{"orgId"},new Object[]{orgId});
     }
 
@@ -136,9 +136,9 @@ public class UserService {
     }
 
     public boolean changePassword(String username,String password,String newPass) {
-        User user = findUserByUsername(username);
-        if (user != null && user.getPassword().equals(password)) {
-            user.setPassword(newPass);
+        SysUser sysUser = findUserByUsername(username);
+        if (sysUser != null && sysUser.getPassword().equals(password)) {
+            sysUser.setPassword(newPass);
             return true;
         }
         return false;
@@ -149,7 +149,7 @@ public class UserService {
         this.userDao = userDao;
     }
 
-    private User formData2User(Map<String,String> formData,User u){
+    private SysUser formData2User(Map<String,String> formData,SysUser u){
         String username = formData.get("username");
         String passowrd = formData.get("password");
         String nickname = formData.get("nickname");
@@ -157,18 +157,18 @@ public class UserService {
         String email = formData.get("email");
         String phone = formData.get("phone");
         String birthday = formData.get("birthday");
-        User user = u;
-        if(user == null){
-            user = new User();
+        SysUser sysUser = u;
+        if(sysUser == null){
+            sysUser = new SysUser();
         }
-        user.setUsername(username);
-        user.setSex(sex);
-        user.setEmail(email);
-        user.setPassword(passowrd);
-        user.setBirthday(DateUtil.util2Sql(DateUtil.str2Date(birthday, "yyyy-MM-dd")));
-        user.setPhone(phone);
-        user.setNickname(nickname);
-        user.setAge(0);
-        return user;
+        sysUser.setUsername(username);
+        sysUser.setSex(sex);
+        sysUser.setEmail(email);
+        sysUser.setPassword(passowrd);
+        sysUser.setBirthday(DateUtil.util2Sql(DateUtil.str2Date(birthday, "yyyy-MM-dd")));
+        sysUser.setPhone(phone);
+        sysUser.setNickname(nickname);
+        sysUser.setAge(0);
+        return sysUser;
     }
 }
