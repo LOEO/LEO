@@ -29,7 +29,6 @@ Ext.define('Leo.view.role.Form', {
                         xtype: 'fieldset',
                         title: '角色信息',
                         defaultType: 'textfield',
-                        itemId: 'accountInfo',
                         defaults: {
                             anchor: '100%'
                         },

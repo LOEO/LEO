@@ -20,7 +20,8 @@ public class TestHibernate {
     public void test(){
                 BeanFactory beanFactory =
                 new ClassPathXmlApplicationContext("classpath*:spring/applicationContext*.xml");
-       /* UserService userService = (UserService) beanFactory.getBean("userService");
+        /* UserService userService = (UserService) beanFactory.getBean("userService");
+
         User user = userService.userLogin("1","1");
         OrgService orgService = (OrgService) beanFactory.getBean("orgService");
         List<Org> l = orgService.getOrgList(0);*/

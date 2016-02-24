@@ -5,38 +5,39 @@ Ext.define('Leo.controller.Menu', {
     extend: 'Ext.app.Controller',
     models: ['Menu'],
     stores: ['Menu'],
-    views: ['menu.Grid'],
+    views: ['menu.Grid','menu.Form'],
     refs: [
-        {ref: 'menugrid', selector: 'menugrid'}
+        {ref: 'menugrid', selector: 'menugrid'},
+        {ref: 'menuform', selector: 'menuform'},
     ],
     init: function () {
         this.control({
-            'rolelist button[action=add]': {
+            'menugrid button[action=add]': {
                 'click': this.addRole
             },
-            'rolelist button[action=delete]': {
+            'menugrid button[action=delete]': {
                 'click': this.deleteRole
             },
-            'rolelist button[action=edit]': {
+            'menugrid button[action=edit]': {
                 'click': this.editRole
             },
-            'roleform button[action=save]': {
+            'menuform button[action=save]': {
                 'click': this.save
             }
         });
     },
     addRole: function () {
-        var view = Ext.widget('roleform');
-        view.setTitle('添加角色');
+        var view = Ext.widget('menuform');
+        view.setTitle('添加菜单');
     },
     editRole: function () {
         var list = this.getRolelist(),
             selectionModel = list.getSelectionModel();
         if (selectionModel.hasSelection()) {
-            var view = Ext.widget('roleform'),
+            var view = Ext.widget('menuform'),
                 form = view.down('form'),
                 record = selectionModel.getLastSelected();
-            view.setTitle('编辑用户');
+            view.setTitle('编辑菜单');
             form.loadRecord(record);
         }
     },

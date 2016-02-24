@@ -32,7 +32,6 @@ Ext.define('Leo.view.org.Form', {
                         xtype: 'fieldset',
                         title: '组织信息',
                         defaultType: 'textfield',
-                        itemId:'accountInfo',
                         defaults: {
                             anchor: '100%'
                         },
